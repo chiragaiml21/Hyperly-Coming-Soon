@@ -5,193 +5,312 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Hyperly — Coming Soon</title>
   <meta name="description" content="Hyperly — Coming Soon" />
+  <meta name="theme-color" content="#0b4f8a" />
+
   <style>
     :root{
-      --bg1:#0f172a;
-      --bg2:#07103a;
-      --accent:#7c5cff;
-      --muted:rgba(255,255,255,0.65);
+      --bg-1: #00172d;
+      --bg-2: #0b4f8a;
+      --accent: #2b88d8;
       --glass: rgba(255,255,255,0.06);
+      --muted: rgba(255,255,255,0.7);
+      --card-radius: 16px;
+      --max-width: 980px;
+      --fw-regular: 400;
+      --fw-bold: 700;
+      --ease: cubic-bezier(.2,.9,.2,1);
     }
+
+    /* Reset-ish */
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
       margin:0;
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      background: linear-gradient(120deg, var(--bg1) 0%, var(--bg2) 60%);
-      color:#fff;
+      background: radial-gradient(1200px 600px at 10% 10%, rgba(43,136,216,0.12), transparent 8%),
+                  radial-gradient(900px 500px at 90% 90%, rgba(11,79,138,0.12), transparent 10%),
+                  linear-gradient(180deg,var(--bg-1),var(--bg-2));
+      color: #fff;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
       display:flex;
       align-items:center;
       justify-content:center;
       padding:32px;
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
     }
 
-    .card{
+    .wrap{
       width:100%;
-      max-width:920px;
-      border-radius:16px;
+      max-width:var(--max-width);
+      display:grid;
+      grid-template-columns: 1fr 420px;
+      gap:32px;
+      align-items:center;
+    }
+
+    @media (max-width:900px){
+      .wrap{grid-template-columns:1fr; padding:16px}
+    }
+
+    .hero {
       padding:40px;
+      border-radius:var(--card-radius);
       background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
-      box-shadow: 0 10px 30px rgba(2,6,23,0.6), inset 0 1px 0 rgba(255,255,255,0.02);
-      backdrop-filter: blur(6px);
-      display:grid;
-      grid-template-columns: 1fr 360px;
-      gap:28px;
-      align-items:center;
+      box-shadow: 0 8px 30px rgba(2,10,30,0.45);
+      backdrop-filter: blur(8px);
     }
 
-    .left{
-      padding-right:8px;
+    .brand {
+      display:flex;
+      gap:16px;
+      align-items:center;
+      margin-bottom:20px;
     }
 
-    .logo{
-      display:inline-flex;
-      align-items:center;
-      gap:12px;
-      margin-bottom:14px;
-    }
-    .logo .mark{
-      width:56px;
-      height:56px;
+    .logo {
+      width:64px;
+      height:64px;
       border-radius:12px;
-      background: linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
-      display:grid;
+      display:inline-grid;
       place-items:center;
+      background: linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+      box-shadow: inset 0 -6px 18px rgba(0,0,0,0.3), 0 4px 14px rgba(10,30,60,0.4);
       font-weight:700;
-      font-size:20px;
-      color:transparent;
-      -webkit-background-clip:text;
-      background-clip:text;
-      background-image: linear-gradient(90deg, #fff 0%, var(--accent) 100%);
-      box-shadow: 0 6px 18px rgba(124,92,255,0.14);
+      font-size:22px;
+      color:var(--accent);
+      letter-spacing:0.5px;
     }
 
     h1{
-      margin:0 0 8px 0;
-      font-size:38px;
+      margin:0 0 12px 0;
+      font-weight:800;
+      font-size:42px;
+      line-height:1.02;
       letter-spacing:-0.02em;
+      color: #fff;
     }
     p.lead{
-      margin:0 0 20px 0;
+      margin:0 0 22px 0;
       color:var(--muted);
-      font-size:15px;
-      line-height:1.5;
-      max-width:60ch;
+      font-size:16px;
+      max-width:54ch;
     }
 
-    .actions{
+    .features{
       display:flex;
       gap:12px;
-      align-items:center;
       margin-top:18px;
+      flex-wrap:wrap;
     }
-
-    .btn{
-      border:0;
-      padding:12px 16px;
-      border-radius:10px;
-      font-weight:600;
-      cursor:pointer;
-      background:linear-gradient(90deg,var(--accent), #4aa3ff);
-      color:white;
-      box-shadow: 0 8px 24px rgba(124,92,255,0.18);
-    }
-    .btn.ghost{
-      background:transparent;
+    .pill{
+      padding:8px 12px;
+      background: linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius:999px;
+      font-size:13px;
       color:var(--muted);
-      border:1px solid rgba(255,255,255,0.06);
-      box-shadow:none;
+      border: 1px solid rgba(255,255,255,0.03);
+      box-shadow: 0 2px 8px rgba(5,20,40,0.3);
     }
 
-    .right{
-      background:var(--glass);
-      border-radius:12px;
-      padding:18px;
-      text-align:center;
+    /* Right card */
+    .card {
+      padding:28px;
+      border-radius:16px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      box-shadow: 0 10px 40px rgba(2,10,30,0.45);
       display:flex;
       flex-direction:column;
-      gap:10px;
-      align-items:center;
-      justify-content:center;
+      gap:16px;
+      align-items:stretch;
+      min-width:280px;
     }
-    .count{
-      font-size:28px;
+
+    .signup-title{
+      font-size:18px;
+      margin:0;
+      color:#fff;
       font-weight:700;
-      letter-spacing:-0.01em;
     }
-    .small{
+    form{display:flex;gap:8px;flex-direction:column}
+    input[type="email"]{
+      padding:12px 14px;
+      border-radius:10px;
+      background: rgba(255,255,255,0.03);
+      border:1px solid rgba(255,255,255,0.06);
+      color: #fff;
+      outline:none;
+      font-size:14px;
+    }
+    input::placeholder{color: rgba(255,255,255,0.45)}
+    button.primary{
+      padding:12px 14px;
+      border-radius:10px;
+      border: none;
+      cursor:pointer;
+      font-weight:700;
+      background: linear-gradient(90deg, var(--accent), #1779c4);
+      color:#fff;
+      transition: transform .12s var(--ease), box-shadow .12s var(--ease);
+      box-shadow: 0 8px 24px rgba(11,79,138,0.25);
+    }
+    button.primary:active{ transform: translateY(1px) }
+    small.muted{ color: var(--muted); font-size:13px }
+
+    .meta{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      justify-content:space-between;
+      margin-top:6px;
       color:var(--muted);
       font-size:13px;
     }
 
-    footer.note{
-      grid-column:1 / -1;
-      text-align:center;
-      margin-top:18px;
-      color:rgba(255,255,255,0.06);
-      font-size:12px;
+    /* footer */
+    footer{
+      margin-top:26px;
+      color:rgba(255,255,255,0.6);
+      font-size:13px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      flex-wrap:wrap;
     }
 
-    /* tiny animation */
-    .floating{
-      animation: floaty 6s ease-in-out infinite;
-    }
-    @keyframes floaty{
-      0%{transform:translateY(0)}
-      50%{transform:translateY(-8px) rotate(-2deg)}
-      100%{transform:translateY(0)}
+    /* subtle animated waves */
+    .wave {
+      position: absolute;
+      bottom: -60px;
+      left: -20%;
+      width: 140%;
+      height: 220px;
+      background: radial-gradient(800px 160px at 10% 40%, rgba(43,136,216,0.06), transparent 10%),
+                  radial-gradient(600px 120px at 90% 60%, rgba(11,79,138,0.04), transparent 10%);
+      filter: blur(20px);
+      transform: rotate(-2deg);
+      z-index: 0;
     }
 
-    @media (max-width:880px){
-      .card{grid-template-columns:1fr; padding:28px}
-      .right{order:-1}
+    /* success toast */
+    .toast {
+      position: fixed;
+      right: 20px;
+      top: 20px;
+      background: linear-gradient(90deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+      color:#fff;
+      border-radius:10px;
+      padding:12px 16px;
+      box-shadow: 0 8px 24px rgba(2,10,30,0.4);
+      transform: translateY(-8px);
+      opacity:0;
+      pointer-events:none;
+      transition:all .28s var(--ease);
+      border:1px solid rgba(255,255,255,0.04);
+      font-size:14px;
     }
+    .toast.show { opacity:1; transform: translateY(0); pointer-events:auto; }
   </style>
 </head>
 <body>
-  <main class="card" role="main">
-    <section class="left">
-      <div class="logo">
-        <div class="mark floating">H</div>
+  <div class="wrap" role="main">
+    <div class="hero" style="position:relative; z-index:2;">
+      <div class="brand" aria-hidden="true">
+        <div class="logo" title="Hyperly">H</div>
         <div>
-          <div style="font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:0.2em">Introducing</div>
-          <div style="font-weight:700;font-size:13px;margin-top:2px">Hyperly</div>
+          <div style="font-size:14px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;font-weight:700">Hyperly</div>
+          <div style="font-size:12px;color:rgba(255,255,255,0.45)">Launching soon</div>
         </div>
       </div>
 
-      <h1>Hyperly — Coming Soon</h1>
-      <p class="lead">
-        We're building something neat for people who move fast and love clean experiences.
-        Sign up to get early access and news — or check back soon.
-      </p>
+      <h1>We’re crafting something local — coming soon</h1>
+      <p class="lead">A simple, smarter way for neighbourhood services. We're building quietly. Join the waitlist and we'll notify you when we go live.</p>
 
-      <div class="actions">
-        <a class="btn" href="mailto:hello@yourdomain.com?subject=Hyperly%20early%20access" title="Email us">Get Early Access</a>
-        <button class="btn ghost" onclick="copyDomain()">Copy Domain</button>
+      <div class="features" aria-hidden="true">
+        <div class="pill">Blue-monochrome UI</div>
+        <div class="pill">Fast API</div>
+        <div class="pill">Hyperlocal first</div>
       </div>
-    </section>
 
-    <aside class="right" aria-hidden="true">
-      <div class="count" id="count">Launching soon</div>
-      <div class="small">Want an update? Email <span style="color:var(--accent);font-weight:600">hello@yourdomain.com</span></div>
+      <footer>
+        <div style="display:flex;gap:14px;align-items:center;">
+          <div style="width:10px;height:10px;border-radius:50%;background:linear-gradient(90deg,var(--accent),#1779c4);box-shadow:0 6px 18px rgba(11,79,138,0.35)"></div>
+          <div style="color:var(--muted)">Private beta — invite only</div>
+        </div>
+
+        <div style="color:var(--muted)">Want to partner? <strong style="color:#fff">info@hyperly.co.in</strong></div>
+      </footer>
+    </div>
+
+    <aside class="card" aria-label="Waitlist signup">
+      <h3 class="signup-title">Join the waitlist</h3>
+      <p style="margin:0;color:var(--muted)">We’ll send a short invite when we’re ready. No spam — only launch updates.</p>
+
+      <form id="signupForm" aria-labelledby="signupForm">
+        <label for="email" style="font-size:13px;color:var(--muted)">Email</label>
+        <input id="email" type="email" placeholder="you@domain.com" required aria-required="true" />
+        <button class="primary" type="submit" aria-label="Join waitlist">Notify me</button>
+        <div class="meta">
+          <small class="muted">By signing up you agree to receive updates.</small>
+          <small class="muted">No data is shared.</small>
+        </div>
+      </form>
+
+      <div style="border-top:1px solid rgba(255,255,255,0.03);padding-top:12px;margin-top:8px;color:var(--muted);font-size:13px">
+        Launching soon — stay tuned.
+      </div>
     </aside>
 
-    <div class="note">
-      Tip: replace <code>hello@yourdomain.com</code> with your actual contact mailbox.
-    </div>
-  </main>
+    <div class="wave" aria-hidden="true"></div>
+  </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite">Thanks — you’re on the list. We'll email at <span id="toast-email"></span></div>
 
   <script>
-    function copyDomain(){
-      const domain = location.hostname || 'yourdomain.com';
-      navigator.clipboard?.writeText(domain).then(()=> {
-        alert('Copied domain: ' + domain);
-      }, ()=> {
-        alert('Copy failed — domain: ' + domain);
+    (function(){
+      const form = document.getElementById('signupForm');
+      const emailInput = document.getElementById('email');
+      const toast = document.getElementById('toast');
+      const toastEmail = document.getElementById('toast-email');
+
+      // simple email validation
+      function isEmail(e){
+        return /\S+@\S+\.\S+/.test(e);
+      }
+
+      form.addEventListener('submit', function(ev){
+        ev.preventDefault();
+        const email = emailInput.value.trim();
+        if(!isEmail(email)){
+          emailInput.focus();
+          emailInput.style.outline = "2px solid rgba(255,80,80,0.18)";
+          setTimeout(()=> emailInput.style.outline = "none", 1200);
+          return;
+        }
+
+        // pretend to submit — store in localStorage for demo
+        try {
+          const list = JSON.parse(localStorage.getItem('hyperly_waitlist')||'[]');
+          if(!list.includes(email)){
+            list.push(email);
+            localStorage.setItem('hyperly_waitlist', JSON.stringify(list));
+          }
+        } catch(e){ /* ignore */ }
+
+        // show toast
+        toastEmail.textContent = email;
+        toast.classList.add('show');
+        setTimeout(()=> toast.classList.remove('show'), 4200);
+
+        // clear input
+        emailInput.value = '';
       });
-    }
+
+      // accessibility: allow Enter to submit if focused
+      emailInput.addEventListener('keydown', function(e){
+        if(e.key === 'Enter'){ e.preventDefault(); form.dispatchEvent(new Event('submit')); }
+      });
+    })();
   </script>
 </body>
 </html>
