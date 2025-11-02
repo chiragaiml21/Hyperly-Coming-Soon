@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Hyperly — Coming Soon</title>
+  <meta name="description" content="Hyperly — Coming Soon" />
+  <style>
+    :root{
+      --bg1:#0f172a;
+      --bg2:#07103a;
+      --accent:#7c5cff;
+      --muted:rgba(255,255,255,0.65);
+      --glass: rgba(255,255,255,0.06);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: linear-gradient(120deg, var(--bg1) 0%, var(--bg2) 60%);
+      color:#fff;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:32px;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+
+    .card{
+      width:100%;
+      max-width:920px;
+      border-radius:16px;
+      padding:40px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+      box-shadow: 0 10px 30px rgba(2,6,23,0.6), inset 0 1px 0 rgba(255,255,255,0.02);
+      backdrop-filter: blur(6px);
+      display:grid;
+      grid-template-columns: 1fr 360px;
+      gap:28px;
+      align-items:center;
+    }
+
+    .left{
+      padding-right:8px;
+    }
+
+    .logo{
+      display:inline-flex;
+      align-items:center;
+      gap:12px;
+      margin-bottom:14px;
+    }
+    .logo .mark{
+      width:56px;
+      height:56px;
+      border-radius:12px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+      display:grid;
+      place-items:center;
+      font-weight:700;
+      font-size:20px;
+      color:transparent;
+      -webkit-background-clip:text;
+      background-clip:text;
+      background-image: linear-gradient(90deg, #fff 0%, var(--accent) 100%);
+      box-shadow: 0 6px 18px rgba(124,92,255,0.14);
+    }
+
+    h1{
+      margin:0 0 8px 0;
+      font-size:38px;
+      letter-spacing:-0.02em;
+    }
+    p.lead{
+      margin:0 0 20px 0;
+      color:var(--muted);
+      font-size:15px;
+      line-height:1.5;
+      max-width:60ch;
+    }
+
+    .actions{
+      display:flex;
+      gap:12px;
+      align-items:center;
+      margin-top:18px;
+    }
+
+    .btn{
+      border:0;
+      padding:12px 16px;
+      border-radius:10px;
+      font-weight:600;
+      cursor:pointer;
+      background:linear-gradient(90deg,var(--accent), #4aa3ff);
+      color:white;
+      box-shadow: 0 8px 24px rgba(124,92,255,0.18);
+    }
+    .btn.ghost{
+      background:transparent;
+      color:var(--muted);
+      border:1px solid rgba(255,255,255,0.06);
+      box-shadow:none;
+    }
+
+    .right{
+      background:var(--glass);
+      border-radius:12px;
+      padding:18px;
+      text-align:center;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      align-items:center;
+      justify-content:center;
+    }
+    .count{
+      font-size:28px;
+      font-weight:700;
+      letter-spacing:-0.01em;
+    }
+    .small{
+      color:var(--muted);
+      font-size:13px;
+    }
+
+    footer.note{
+      grid-column:1 / -1;
+      text-align:center;
+      margin-top:18px;
+      color:rgba(255,255,255,0.06);
+      font-size:12px;
+    }
+
+    /* tiny animation */
+    .floating{
+      animation: floaty 6s ease-in-out infinite;
+    }
+    @keyframes floaty{
+      0%{transform:translateY(0)}
+      50%{transform:translateY(-8px) rotate(-2deg)}
+      100%{transform:translateY(0)}
+    }
+
+    @media (max-width:880px){
+      .card{grid-template-columns:1fr; padding:28px}
+      .right{order:-1}
+    }
+  </style>
+</head>
+<body>
+  <main class="card" role="main">
+    <section class="left">
+      <div class="logo">
+        <div class="mark floating">H</div>
+        <div>
+          <div style="font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:0.2em">Introducing</div>
+          <div style="font-weight:700;font-size:13px;margin-top:2px">Hyperly</div>
+        </div>
+      </div>
+
+      <h1>Hyperly — Coming Soon</h1>
+      <p class="lead">
+        We're building something neat for people who move fast and love clean experiences.
+        Sign up to get early access and news — or check back soon.
+      </p>
+
+      <div class="actions">
+        <a class="btn" href="mailto:hello@yourdomain.com?subject=Hyperly%20early%20access" title="Email us">Get Early Access</a>
+        <button class="btn ghost" onclick="copyDomain()">Copy Domain</button>
+      </div>
+    </section>
+
+    <aside class="right" aria-hidden="true">
+      <div class="count" id="count">Launching soon</div>
+      <div class="small">Want an update? Email <span style="color:var(--accent);font-weight:600">hello@yourdomain.com</span></div>
+    </aside>
+
+    <div class="note">
+      Tip: replace <code>hello@yourdomain.com</code> with your actual contact mailbox.
+    </div>
+  </main>
+
+  <script>
+    function copyDomain(){
+      const domain = location.hostname || 'yourdomain.com';
+      navigator.clipboard?.writeText(domain).then(()=> {
+        alert('Copied domain: ' + domain);
+      }, ()=> {
+        alert('Copy failed — domain: ' + domain);
+      });
+    }
+  </script>
+</body>
+</html>
