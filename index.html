@@ -1,316 +1,388 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Hyperly — Coming Soon</title>
-  <meta name="description" content="Hyperly — Coming Soon" />
-  <meta name="theme-color" content="#0b4f8a" />
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hyperly | Coming Soon</title>
   <style>
-    :root{
-      --bg-1: #00172d;
-      --bg-2: #0b4f8a;
-      --accent: #2b88d8;
-      --glass: rgba(255,255,255,0.06);
-      --muted: rgba(255,255,255,0.7);
-      --card-radius: 16px;
-      --max-width: 980px;
-      --fw-regular: 400;
-      --fw-bold: 700;
-      --ease: cubic-bezier(.2,.9,.2,1);
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
     }
-
-    /* Reset-ish */
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      background: radial-gradient(1200px 600px at 10% 10%, rgba(43,136,216,0.12), transparent 8%),
-                  radial-gradient(900px 500px at 90% 90%, rgba(11,79,138,0.12), transparent 10%),
-                  linear-gradient(180deg,var(--bg-1),var(--bg-2));
+    body {
+      background: linear-gradient(135deg, #0a2540, #193b70, #1e4976);
+      background-size: 400% 400%;
+      animation: gradientShift 15s ease infinite;
       color: #fff;
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:32px;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+      overflow-x: hidden;
+      overflow-y: auto;
+      position: relative;
+      padding: 40px 20px;
     }
-
-    .wrap{
-      width:100%;
-      max-width:var(--max-width);
-      display:grid;
-      grid-template-columns: 1fr 420px;
-      gap:32px;
-      align-items:center;
+    
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
-
-    @media (max-width:900px){
-      .wrap{grid-template-columns:1fr; padding:16px}
-    }
-
-    .hero {
-      padding:40px;
-      border-radius:var(--card-radius);
-      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
-      box-shadow: 0 8px 30px rgba(2,10,30,0.45);
-      backdrop-filter: blur(8px);
-    }
-
-    .brand {
-      display:flex;
-      gap:16px;
-      align-items:center;
-      margin-bottom:20px;
-    }
-
-    .logo {
-      width:64px;
-      height:64px;
-      border-radius:12px;
-      display:inline-grid;
-      place-items:center;
-      background: linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
-      box-shadow: inset 0 -6px 18px rgba(0,0,0,0.3), 0 4px 14px rgba(10,30,60,0.4);
-      font-weight:700;
-      font-size:22px;
-      color:var(--accent);
-      letter-spacing:0.5px;
-    }
-
-    h1{
-      margin:0 0 12px 0;
-      font-weight:800;
-      font-size:42px;
-      line-height:1.02;
-      letter-spacing:-0.02em;
-      color: #fff;
-    }
-    p.lead{
-      margin:0 0 22px 0;
-      color:var(--muted);
-      font-size:16px;
-      max-width:54ch;
-    }
-
-    .features{
-      display:flex;
-      gap:12px;
-      margin-top:18px;
-      flex-wrap:wrap;
-    }
-    .pill{
-      padding:8px 12px;
-      background: linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      border-radius:999px;
-      font-size:13px;
-      color:var(--muted);
-      border: 1px solid rgba(255,255,255,0.03);
-      box-shadow: 0 2px 8px rgba(5,20,40,0.3);
-    }
-
-    /* Right card */
-    .card {
-      padding:28px;
-      border-radius:16px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      box-shadow: 0 10px 40px rgba(2,10,30,0.45);
-      display:flex;
-      flex-direction:column;
-      gap:16px;
-      align-items:stretch;
-      min-width:280px;
-    }
-
-    .signup-title{
-      font-size:18px;
-      margin:0;
-      color:#fff;
-      font-weight:700;
-    }
-    form{display:flex;gap:8px;flex-direction:column}
-    input[type="email"]{
-      padding:12px 14px;
-      border-radius:10px;
-      background: rgba(255,255,255,0.03);
-      border:1px solid rgba(255,255,255,0.06);
-      color: #fff;
-      outline:none;
-      font-size:14px;
-    }
-    input::placeholder{color: rgba(255,255,255,0.45)}
-    button.primary{
-      padding:12px 14px;
-      border-radius:10px;
-      border: none;
-      cursor:pointer;
-      font-weight:700;
-      background: linear-gradient(90deg, var(--accent), #1779c4);
-      color:#fff;
-      transition: transform .12s var(--ease), box-shadow .12s var(--ease);
-      box-shadow: 0 8px 24px rgba(11,79,138,0.25);
-    }
-    button.primary:active{ transform: translateY(1px) }
-    small.muted{ color: var(--muted); font-size:13px }
-
-    .meta{
-      display:flex;
-      align-items:center;
-      gap:12px;
-      justify-content:space-between;
-      margin-top:6px;
-      color:var(--muted);
-      font-size:13px;
-    }
-
-    /* footer */
-    footer{
-      margin-top:26px;
-      color:rgba(255,255,255,0.6);
-      font-size:13px;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:12px;
-      flex-wrap:wrap;
-    }
-
-    /* subtle animated waves */
-    .wave {
+    
+    .particles {
       position: absolute;
-      bottom: -60px;
-      left: -20%;
-      width: 140%;
-      height: 220px;
-      background: radial-gradient(800px 160px at 10% 40%, rgba(43,136,216,0.06), transparent 10%),
-                  radial-gradient(600px 120px at 90% 60%, rgba(11,79,138,0.04), transparent 10%);
-      filter: blur(20px);
-      transform: rotate(-2deg);
-      z-index: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      top: 0;
+      left: 0;
+      z-index: 1;
     }
-
-    /* success toast */
-    .toast {
+    
+    .particle {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      background: rgba(255, 255, 255, 0.5);
+      border-radius: 50%;
+      animation: rise 15s infinite ease-in;
+    }
+    
+    @keyframes rise {
+      0% {
+        transform: translateY(100vh) scale(0);
+        opacity: 0;
+      }
+      10% {
+        opacity: 1;
+      }
+      90% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100vh) scale(1);
+        opacity: 0;
+      }
+    }
+    
+    .content {
+      position: relative;
+      z-index: 10;
+      max-width: 800px;
+    }
+    
+    .logo-container {
+      margin-bottom: 2rem;
+      animation: fadeInDown 1s ease;
+    }
+    
+    h1 {
+      font-size: clamp(2.5rem, 8vw, 5rem);
+      font-weight: 700;
+      margin-bottom: 1rem;
+      letter-spacing: 3px;
+      background: linear-gradient(45deg, #fff, #a8d5ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: fadeInDown 1s ease 0.2s both;
+      text-shadow: 0 0 40px rgba(168, 213, 255, 0.5);
+    }
+    
+    .tagline {
+      font-size: clamp(1rem, 3vw, 1.5rem);
+      opacity: 0.9;
+      margin-bottom: 3rem;
+      font-weight: 300;
+      animation: fadeInUp 1s ease 0.4s both;
+      line-height: 1.6;
+    }
+    
+    .cta-container {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 3rem;
+      animation: fadeInUp 1s ease 0.6s both;
+    }
+    
+    .mail {
+      color: #fff;
+      text-decoration: none;
+      border: 2px solid rgba(255,255,255,0.4);
+      padding: 14px 32px;
+      border-radius: 50px;
+      transition: all 0.3s ease;
+      font-weight: 500;
+      backdrop-filter: blur(10px);
+      background: rgba(255, 255, 255, 0.05);
+      cursor: pointer;
+      font-size: clamp(0.9rem, 2vw, 1rem);
+    }
+    
+    .mail:hover {
+      background: rgba(255,255,255,0.15);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(168, 213, 255, 0.3);
+      border-color: rgba(255,255,255,0.6);
+    }
+    
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      margin-top: 4rem;
+      animation: fadeInUp 1s ease 0.8s both;
+      width: 100%;
+      max-width: 900px;
+    }
+    
+    .feature {
+      padding: 1.5rem;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 20px;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    
+    .feature:hover {
+      transform: translateY(-5px);
+      background: rgba(255, 255, 255, 0.1);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+    }
+    
+    .feature-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+    
+    .feature h3 {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+    
+    .feature p {
+      font-size: 0.9rem;
+      opacity: 0.8;
+      margin: 0;
+    }
+    
+    .glow {
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, rgba(168, 213, 255, 0.25) 0%, transparent 70%);
+      position: absolute;
+      top: 10%;
+      left: 10%;
+      border-radius: 50%;
+      filter: blur(60px);
+      animation: float 8s ease-in-out infinite alternate;
+      z-index: 2;
+    }
+    
+    .glow2 {
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(100, 150, 255, 0.2) 0%, transparent 70%);
+      position: absolute;
+      bottom: 15%;
+      right: 15%;
+      border-radius: 50%;
+      filter: blur(80px);
+      animation: float2 10s ease-in-out infinite alternate;
+      z-index: 2;
+    }
+    
+    .interactive-circle {
       position: fixed;
-      right: 20px;
-      top: 20px;
-      background: linear-gradient(90deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
-      color:#fff;
-      border-radius:10px;
-      padding:12px 16px;
-      box-shadow: 0 8px 24px rgba(2,10,30,0.4);
-      transform: translateY(-8px);
-      opacity:0;
-      pointer-events:none;
-      transition:all .28s var(--ease);
-      border:1px solid rgba(255,255,255,0.04);
-      font-size:14px;
+      width: 40px;
+      height: 40px;
+      border: 2px solid rgba(255, 255, 255, 0.5);
+      border-radius: 50%;
+      pointer-events: none;
+      transition: all 0.15s ease;
+      z-index: 9999;
+      backdrop-filter: blur(5px);
+      background: rgba(255, 255, 255, 0.05);
     }
-    .toast.show { opacity:1; transform: translateY(0); pointer-events:auto; }
+    
+    @keyframes float {
+      from { transform: translate(0, 0) scale(1); }
+      to { transform: translate(30px, 40px) scale(1.1); }
+    }
+    
+    @keyframes float2 {
+      from { transform: translate(0, 0) scale(1); }
+      to { transform: translate(-40px, -30px) scale(1.15); }
+    }
+    
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .features {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+      
+      .cta-container {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      
+      .glow, .glow2 {
+        width: 200px;
+        height: 200px;
+      }
+    }
+    
+    .footer {
+      margin-top: 4rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      animation: fadeInUp 1s ease 1s both;
+      width: 100%;
+    }
+    
+    .footer-email {
+      font-size: clamp(0.9rem, 2vw, 1.1rem);
+      margin-bottom: 0.5rem;
+      opacity: 0.9;
+      font-weight: 500;
+    }
+    
+    .footer-email:hover {
+      opacity: 1;
+      color: #a8d5ff;
+    }
+    
+    .footer-copyright {
+      font-size: clamp(0.8rem, 1.5vw, 0.9rem);
+      opacity: 0.6;
+      margin: 0;
+    }
   </style>
 </head>
 <body>
-  <div class="wrap" role="main">
-    <div class="hero" style="position:relative; z-index:2;">
-      <div class="brand" aria-hidden="true">
-        <div class="logo" title="Hyperly">H</div>
-        <div>
-          <div style="font-size:14px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;font-weight:700">Hyperly</div>
-          <div style="font-size:12px;color:rgba(255,255,255,0.45)">Launching soon</div>
-        </div>
-      </div>
-
-      <h1>We’re crafting something local — coming soon</h1>
-      <p class="lead">A simple, smarter way for neighbourhood services. We're building quietly. Join the waitlist and we'll notify you when we go live.</p>
-
-      <div class="features" aria-hidden="true">
-        <div class="pill">Blue-monochrome UI</div>
-        <div class="pill">Fast API</div>
-        <div class="pill">Hyperlocal first</div>
-      </div>
-
-      <footer>
-        <div style="display:flex;gap:14px;align-items:center;">
-          <div style="width:10px;height:10px;border-radius:50%;background:linear-gradient(90deg,var(--accent),#1779c4);box-shadow:0 6px 18px rgba(11,79,138,0.35)"></div>
-          <div style="color:var(--muted)">Private beta — invite only</div>
-        </div>
-
-        <div style="color:var(--muted)">Want to partner? <strong style="color:#fff">info@hyperly.co.in</strong></div>
-      </footer>
+  <div class="particles" id="particles"></div>
+  <div class="interactive-circle" id="cursor"></div>
+  <div class="glow"></div>
+  <div class="glow2"></div>
+  
+  <div class="content">
+    <div class="logo-container">
+      <h1>HYPERLY</h1>
     </div>
-
-    <aside class="card" aria-label="Waitlist signup">
-      <h3 class="signup-title">Join the waitlist</h3>
-      <p style="margin:0;color:var(--muted)">We’ll send a short invite when we’re ready. No spam — only launch updates.</p>
-
-      <form id="signupForm" aria-labelledby="signupForm">
-        <label for="email" style="font-size:13px;color:var(--muted)">Email</label>
-        <input id="email" type="email" placeholder="you@domain.com" required aria-required="true" />
-        <button class="primary" type="submit" aria-label="Join waitlist">Notify me</button>
-        <div class="meta">
-          <small class="muted">By signing up you agree to receive updates.</small>
-          <small class="muted">No data is shared.</small>
-        </div>
-      </form>
-
-      <div style="border-top:1px solid rgba(255,255,255,0.03);padding-top:12px;margin-top:8px;color:var(--muted);font-size:13px">
-        Launching soon — stay tuned.
+    
+    <p class="tagline">
+      Building the future of digital experiences.<br>
+      Something extraordinary is launching soon.
+    </p>
+    
+    <div class="cta-container">
+      <a href="mailto:info@hyperly.co.in" class="mail">Get in Touch</a>
+    </div>
+    
+    <div class="features">
+      <div class="feature">
+        <span class="feature-icon">⚡</span>
+        <h3>Lightning Fast</h3>
+        <p>Optimized for speed and performance</p>
       </div>
-    </aside>
-
-    <div class="wave" aria-hidden="true"></div>
+      <div class="feature">
+        <span class="feature-icon">🎯</span>
+        <h3>Precision Design</h3>
+        <p>Crafted with attention to detail</p>
+      </div>
+      <div class="feature">
+        <span class="feature-icon">🚀</span>
+        <h3>Innovation First</h3>
+        <p>Pushing boundaries of what's possible</p>
+      </div>
+    </div>
+    
+    <footer class="footer">
+      <p class="footer-email">info@hyperly.co.in</p>
+      <p class="footer-copyright">© 2025 Hyperly. All rights reserved.</p>
+    </footer>
   </div>
 
-  <div id="toast" class="toast" role="status" aria-live="polite">Thanks — you’re on the list. We'll email at <span id="toast-email"></span></div>
-
   <script>
-    (function(){
-      const form = document.getElementById('signupForm');
-      const emailInput = document.getElementById('email');
-      const toast = document.getElementById('toast');
-      const toastEmail = document.getElementById('toast-email');
-
-      // simple email validation
-      function isEmail(e){
-        return /\S+@\S+\.\S+/.test(e);
-      }
-
-      form.addEventListener('submit', function(ev){
-        ev.preventDefault();
-        const email = emailInput.value.trim();
-        if(!isEmail(email)){
-          emailInput.focus();
-          emailInput.style.outline = "2px solid rgba(255,80,80,0.18)";
-          setTimeout(()=> emailInput.style.outline = "none", 1200);
-          return;
-        }
-
-        // pretend to submit — store in localStorage for demo
-        try {
-          const list = JSON.parse(localStorage.getItem('hyperly_waitlist')||'[]');
-          if(!list.includes(email)){
-            list.push(email);
-            localStorage.setItem('hyperly_waitlist', JSON.stringify(list));
-          }
-        } catch(e){ /* ignore */ }
-
-        // show toast
-        toastEmail.textContent = email;
-        toast.classList.add('show');
-        setTimeout(()=> toast.classList.remove('show'), 4200);
-
-        // clear input
-        emailInput.value = '';
+    // Create floating particles
+    const particlesContainer = document.getElementById('particles');
+    for (let i = 0; i < 50; i++) {
+      const particle = document.createElement('div');
+      particle.className = 'particle';
+      particle.style.left = Math.random() * 100 + '%';
+      particle.style.animationDelay = Math.random() * 15 + 's';
+      particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+      particlesContainer.appendChild(particle);
+    }
+    
+    // Custom cursor follower
+    const cursor = document.getElementById('cursor');
+    let mouseX = 0, mouseY = 0;
+    let cursorX = 0, cursorY = 0;
+    
+    document.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    });
+    
+    function animateCursor() {
+      const dx = mouseX - cursorX;
+      const dy = mouseY - cursorY;
+      
+      cursorX += dx * 0.1;
+      cursorY += dy * 0.1;
+      
+      cursor.style.left = cursorX - 20 + 'px';
+      cursor.style.top = cursorY - 20 + 'px';
+      
+      requestAnimationFrame(animateCursor);
+    }
+    animateCursor();
+    
+    // Add hover effects
+    document.querySelectorAll('.feature, .mail').forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        cursor.style.transform = 'scale(1.5)';
+        cursor.style.borderColor = 'rgba(168, 213, 255, 0.8)';
       });
-
-      // accessibility: allow Enter to submit if focused
-      emailInput.addEventListener('keydown', function(e){
-        if(e.key === 'Enter'){ e.preventDefault(); form.dispatchEvent(new Event('submit')); }
+      el.addEventListener('mouseleave', () => {
+        cursor.style.transform = 'scale(1)';
+        cursor.style.borderColor = 'rgba(255, 255, 255, 0.5)';
       });
-    })();
+    });
   </script>
 </body>
 </html>
